@@ -1,7 +1,7 @@
 package com.bavt.finsap.application;
 
 import com.bavt.finsap.dto.UserDto;
-import com.bavt.finsap.infrastructure.IUserRepository;
+import com.bavt.finsap.infrastructure.User.IUserRepository;
 import com.bavt.finsap.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
