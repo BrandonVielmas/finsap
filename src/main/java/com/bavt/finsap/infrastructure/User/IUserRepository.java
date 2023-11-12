@@ -1,4 +1,4 @@
-package com.bavt.finsap.infrastructure;
+package com.bavt.finsap.infrastructure.User;
 
 import com.bavt.finsap.domain.entity.UserEntity;
 import com.bavt.finsap.dto.UserDto;

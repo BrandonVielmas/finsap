@@ -1,4 +1,4 @@
-package com.bavt.finsap.infrastructure;
+package com.bavt.finsap.infrastructure.User;
 
 import com.bavt.finsap.domain.entity.UserEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -29,6 +30,8 @@ public class UserJdbcRepository implements IUserRepository {
                     user.setLastName(rs.getString("lastName"));
                     user.setEmail(rs.getString("email"));
                     user.setPassword(rs.getString("password"));
+                    user.setCreateDate(rs.getDate("createDate"));
+                    user.setUpdateDate(rs.getDate("updateDate"));
                     return user;
                 });
     }
@@ -41,12 +44,12 @@ public class UserJdbcRepository implements IUserRepository {
 
     @Override
     public UserEntity createUser(UserEntity userEntity) {
-        String sql = "INSERT INTO users (name, lastName, email, password) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO users (name, lastName, email, password) VALUES (?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         _jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, userEntity.getName());
             ps.setString(2, userEntity.getLastName());
             ps.setString(3, userEntity.getEmail());
@@ -55,7 +58,9 @@ public class UserJdbcRepository implements IUserRepository {
         }, keyHolder);
 
         if (keyHolder.getKey() != null) {
-            userEntity.setId((int) keyHolder.getKey().longValue());
+            userEntity.setId(keyHolder.getKey().intValue());
+            userEntity.setCreateDate(new Date());
+            userEntity.setUpdateDate(new Date());
         }
 
         return userEntity;
