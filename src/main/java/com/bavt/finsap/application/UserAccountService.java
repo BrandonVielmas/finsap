@@ -2,10 +2,12 @@ package com.bavt.finsap.application;
 
 import com.bavt.finsap.domain.entity.AccountDetailsEntity;
 import com.bavt.finsap.domain.entity.UserEntity;
+import com.bavt.finsap.domain.helpers.UserAccountDetailsHelper;
 import com.bavt.finsap.dto.UserAccountDetailsDto;
 import com.bavt.finsap.dto.UserDto;
 import com.bavt.finsap.infrastructure.AccountDetails.IAccountDetailsRepository;
 import com.bavt.finsap.infrastructure.User.IUserRepository;
+import com.bavt.finsap.infrastructure.helpers.IUserAccountRepository;
 import com.bavt.finsap.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ public class UserAccountService implements IUserAccountService {
 
     private final IUserRepository _userRepository;
     private final IAccountDetailsRepository _accountDetailsRepository;
+    private final IUserAccountRepository _userAccountRepository;
 
-    public UserAccountService(IUserRepository userRepository, IAccountDetailsRepository accountDetailsRepository) {
+    public UserAccountService(IUserRepository userRepository, IAccountDetailsRepository accountDetailsRepository, IUserAccountRepository userAccountRepository) {
         _userRepository = userRepository;
         _accountDetailsRepository = accountDetailsRepository;
+        _userAccountRepository = userAccountRepository;
     }
 
     @Override
@@ -55,6 +59,11 @@ public class UserAccountService implements IUserAccountService {
         newUserAccountDetailsDto.setUpdateDate(newAccountDetailsEntity.getUpdateDate());
 
         return newUserAccountDetailsDto;
+    }
+
+    @Override
+    public UserAccountDetailsHelper getUserAccountById(Integer userId) {
+        return _userAccountRepository.getUserAccountById(userId);
     }
 }
 

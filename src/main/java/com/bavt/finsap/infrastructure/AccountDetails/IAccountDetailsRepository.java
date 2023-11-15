@@ -6,6 +6,5 @@ public interface IAccountDetailsRepository {
 
     AccountDetailsEntity createAccountDetails(AccountDetailsEntity accountDetailsEntity);
     AccountDetailsEntity getAccountDetailsById(Integer id);
-
     AccountDetailsEntity createAccountDetails(Integer id, String userName);
 }
