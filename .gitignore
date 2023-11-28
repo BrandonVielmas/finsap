@@ -1,33 +1,30 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Node.js
+node_modules/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Logs
+logs/
+*.log
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# Dependencias generadas
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Configuración local
+.env
 
-### VS Code ###
+# Editor
 .vscode/
+
+# Mac
+.DS_Store
+
+# Archivos de compilación
+dist/
+
+# Dependencias de producción
+*.pem
+
+# Dependencias de desarrollo
+*.test.js
+*.spec.js
