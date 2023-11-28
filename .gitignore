@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Dependencias generadas
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Configuración local
+.env
+
+# Editor
+.vscode/
+
+# Mac
+.DS_Store
+
+# Archivos de compilación
+dist/
+
+# Dependencias de producción
+*.pem
+
+# Dependencias de desarrollo
+*.test.js
+*.spec.js
