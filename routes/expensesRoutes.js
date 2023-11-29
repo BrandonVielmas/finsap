@@ -14,6 +14,14 @@ router.get('/expenses', async (req, res) => {
     }
 })
 
+router.get("/hola", (req,res) => {
+	try {
+		res.json({mensaje: "Holaaaaaaa!!!\n"});
+	} catch(error) {
+		res.status(500).send("Ocurrio un error en el servidor");
+	}
+})
+
 router.get('/expenses/:id', async (req, res) => {
     const userId = req.params.id;
   
