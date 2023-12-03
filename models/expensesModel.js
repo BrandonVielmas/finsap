@@ -1,4 +1,4 @@
-const db = require('../config/dbConfig')
+const db = require('../config/dbConfig');
 
 const Expenses = {}
 
@@ -14,7 +14,7 @@ Expenses.getAllExpenses = async () => {
 
 Expenses.findByUserId = async (userId) => {
     try {
-      const rows = await db.query('SELECT * FROM expenses WHERE userId = ?', [userId]);
+      const rows = await db.query('SELECT id, userId, amountSpent, expenseDescription, createDate, updateDate FROM expenses WHERE userId = ? order by id desc;', [userId]);
       if (rows.length === 0) {
         return null;
       }
@@ -24,17 +24,17 @@ Expenses.findByUserId = async (userId) => {
       throw error;
     }
   };
-  
-//   // Ejemplo de función para crear un nuevo usuario
-//   User.createUser = async (username, email) => {
-//     try {
-//       const [result] = await db.query('INSERT INTO users (username, email) VALUES (?, ?)', [username, email]);
-//       const insertedUserId = result.insertId;
-//       return insertedUserId;
-//     } catch (error) {
-//       console.error('Error al crear usuario:', error);
-//       throw error;
-//     }
-//   };
 
+Expenses.insert = async (newExpenses) => {
+	try {
+		//const { userId, amountSpent, expenseDescription } = newExpenses;
+		const result = db.query("insert into expenses (userId, amountSpent, expenseDescription) values (? , ?, ?)", [newExpenses.userId, newExpenses.amountSpent, newExpenses.expenseDescription]);
+		newExpenses.id = result.insertId;
+		return newExpenses;
+	}catch (error){
+	console.error('Error al insertar gasto', error);
+	throw error;
+	}
+};
+  
 module.exports = Expenses;

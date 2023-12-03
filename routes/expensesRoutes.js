@@ -36,18 +36,20 @@ router.get('/expenses/:id', async (req, res) => {
       res.status(500).send('Error del servidor');
     }
   });
-  
-//   // Ruta para crear un nuevo usuario
-//   router.post('/users', async (req, res) => {
-//     const { username, email } = req.body;
-  
-//     try {
-//       const newUser = await User.create({ username, email });
-//       res.json(newUser);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send('Error del servidor');
-//     }
-//   });
+
+router.post('/expenses', async (req, res) => {
+	try {
+		const newExpenses = await Expenses.insert(req.body);
+		if(!newExpenses){
+			return res.status(404).send('Ocurrio un error');
+		}
+    setTimeout(() => {
+      res.json(newExpenses);
+    }, 150) //para que se alcanze a ejecutar el triger
+	}catch(error) {
+		console.error(error);
+		res.status(500).send('Error en el servidor');
+	}
+});
 
 module.exports = router;
