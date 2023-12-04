@@ -15,4 +15,19 @@ User.getUserAccountDetailsById = async (userId) => {
 	}
 }
 
+User.getInfoGraficas = async (fechas) => {
+	const inicio = fechas.fechaInicio;
+	const fin = fechas.fechaFin;
+	try {
+		const rows = await db.query("SELECT t.description, sum(e.amountSpent) as Total FROM expenses e inner join type_expenses t on e.typeExpensesId = t.id where e.createDate >= cast(? as datetime) and e.createDate <= cast(? as datetime) group by t.id order by t.id;", [`${inicio.year}-${inicio.month}-${inicio.day}`, `${fin.year}-${fin.month}-${fin.day}`]);
+		if(rows.length === 0){
+			return null;
+		}
+		return rows;
+	}catch(error){
+		console.error('Error al obtener los datos del usuario', error);
+		throw error;
+	}
+}
+
 module.exports = User;

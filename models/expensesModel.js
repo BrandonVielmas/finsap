@@ -28,7 +28,7 @@ Expenses.findByUserId = async (userId) => {
 Expenses.insert = async (newExpenses) => {
 	try {
 		//const { userId, amountSpent, expenseDescription } = newExpenses;
-		const result = db.query("insert into expenses (userId, amountSpent, expenseDescription) values (? , ?, ?)", [newExpenses.userId, newExpenses.amountSpent, newExpenses.expenseDescription]);
+		const result = await db.query("insert into expenses (userId, amountSpent, expenseDescription) values (? , ?, ?)", [newExpenses.userId, newExpenses.amountSpent, newExpenses.expenseDescription]);
 		newExpenses.id = result.insertId;
 		return newExpenses;
 	}catch (error){
